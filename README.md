@@ -85,9 +85,9 @@ Example:
 python train.py \
     --device 0 \
     --method UM-SRNet \
-    --mask_dir ./Data/masks/train \
-    --train_data_path ./Data/train/ \
-    --val_data_path ./Data/val/ \
+    --mask_dir ./data/masks/ \
+    --train_data_path ./data/train/ \
+    --val_data_path ./data/val/ \
     --model_dir ./model_SRNet
 ```
 
@@ -107,6 +107,20 @@ To evaluate a pretrained model, specify the model path using `--pretrained_model
 ```bash
 python train.py \
     --pretrained_model_path ./model_zoo/net.pth
+```
+
+---
+
+# 🔍 Inference
+
+To reconstruct hyperspectral images from measurements, configure the mask path, pretrained model, input folder, and output folder in `inference.sh`:
+
+```bash
+sh inference.sh
+    --mask_path ./mask/mask.mat \
+    --pretrained_model_path ./model_zoo/net.pth \
+    --image_folder ./data/measurement/ \
+    --save_folder ./results/
 ```
 
 ---
