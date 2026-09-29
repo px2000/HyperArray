@@ -114,4 +114,4 @@ python train.py \
 
 ## 📬 Contact
 
-- For questions, please contact: [bian@bit.edu.cn](mailto:bian@bit.edu.cn) or open an issue on this GitHub repository.
+- For questions, please contact [bian@bit.edu.cn](mailto:bian@bit.edu.cn) or [lianjie_li@bit.edu.cn](mailto:lianjie_li@bit.edu.cn), or open an issue in this GitHub repository.
