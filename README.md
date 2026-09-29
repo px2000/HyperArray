@@ -23,22 +23,16 @@ UM-SRNet/
 │   ├── getdataset.py                # Dataset loading utilities
 │   └── my_utils.py                  # General utility functions
 │
-├── data/
-│   ├── train/                       # Training hyperspectral images
-│   ├── val/                         # Validation hyperspectral images
-│   └── test/                        # Test hyperspectral images
-│
-├── mask/
-│   ├── train/                       # Masks used for training
-│   └── test/                        # Calibrated masks used for testing
-│
-├── model_zoo/
-│   └── net.pth                      # Pretrained model checkpoint
+├── data/                            # Hyperspectral dataset and measurement
+├── mask/                            # Spectral encoding masks
+├── model_zoo/                       # Pretrained model checkpoint
 │
 ├── diffusion_train.py               # Diffusion model training
 ├── diffusion_train.sh               # Example diffusion training script
 ├── train.py                         # Reconstruction network training
-└── train.sh                         # Example training script
+├── train.sh                         # Example training script
+├── inference.py                     # Hyperspectral reconstruction
+└── inference.sh                     # Example inference script
 ```
 
 > The directory structure can be adjusted according to your local dataset paths.
