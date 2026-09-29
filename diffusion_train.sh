@@ -5,4 +5,4 @@ python diffusion_train.py \
     --train_paths \
         /mask/ \
     --save_mask_dir ./save_model/mat/ \
-    --save_ckpt_dir ./save_model/pt/ \
+    --save_ckpt_dir ./save_model/pt/ 
