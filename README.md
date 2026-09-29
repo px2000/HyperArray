@@ -14,10 +14,14 @@ UM-SRNet/
 │   ├── __init__.py                  # Model initialization
 │   └── UM_SRNet.py                  # UM-SRNet architecture
 │
+├── ddpm/
+│   ├── diffusion.py                 # Gaussian diffusion process
+│   └── unet.py                      # Diffusion UNet architecture
+│
 ├── utils/
-│   ├── DataProcess/                 # Data processing utilities
-│   ├── getdataset/                  # Dataset loading utilities
-│   └── my_utils/                    # General utility functions
+│   ├── DataProcess.py               # Data processing utilities
+│   ├── getdataset.py                # Dataset loading utilities
+│   └── my_utils.py                  # General utility functions
 │
 ├── data/
 │   ├── train/                       # Training hyperspectral images
@@ -31,6 +35,8 @@ UM-SRNet/
 ├── model_zoo/
 │   └── net.pth                      # Pretrained model checkpoint
 │
+├── diffusion_train.py               # Diffusion model training
+├── diffusion_train.sh               # Example diffusion training script
 ├── train.py                         # Reconstruction network training
 └── train.sh                         # Example training script
 ```
@@ -56,19 +62,18 @@ The code was tested under the following environment:
 
 # 🌫️ Diffusion-based Mask Generation
 
-To improve reconstruction robustness to mask variations among different camera modules, calibrated masks are divided into local patches and used to train a denoising diffusion probabilistic model.
-
-The diffusion model learns the distribution of mask variations across different camera modules.
-
-After training, new mask patches are generated from Gaussian noise and reassembled into full-resolution masks.
+Training masks are MAT files containing a `mask` array in channel-first form (`C × H × W`). Place the calibrated masks in the `mask/` directory and specify their paths in `diffusion_train.sh`.  
+The paths and training parameters can be configured in `diffusion_train.sh`.
 
 Example:
 
 ```bash
-python diffusion/train_diffusion.py \
-    --mask_dir ./Data/masks/train \
-    --image_size 128 \
-    --batch_size 8
+python diffusion_train.py \
+    --device 0 \
+    --train_paths \
+        /mask/... \
+    --save_mask_dir ./save_model/mat/ \
+    --save_ckpt_dir ./save_model/pt/ 
 ```
 
 The generated masks can then be used for multi-mask reconstruction training.
@@ -89,7 +94,7 @@ python train.py \
     --mask_dir ./Data/masks/train \
     --train_data_path ./Data/train/ \
     --val_data_path ./Data/val/ \
-    --model_dir ./model_SRNet \
+    --model_dir ./model_SRNet
 ```
 
 ---
@@ -103,7 +108,7 @@ python train.py \
     --resume ./model_SRNet/checkpoint.pth
 ```
 
-To evaluate a pretrained model, specify the model path using --pretrained_model_path in test.sh:
+To evaluate a pretrained model, specify the model path using `--pretrained_model_path` in `test.sh`:
 
 ```bash
 python train.py \
